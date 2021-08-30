@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Examples of auto generating **Swagger/OpenAPI**, **Code Documentation** and **ADRs** as part of your Serverless solutions! This repo supports the following blog post: [Serverless Documentation 🚀](/)
+Examples of auto generating **Swagger/OpenAPI**, **Code Documentation** and **ADRs** as part of your Serverless solutions! This repo supports the following blog post: [Serverless Documentation 🚀](https://leejamesgilmore.medium.com/documenting-your-serverless-solutions-509f1928564b)
 
 ### What are we building?
 
