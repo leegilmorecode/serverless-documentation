@@ -1,0 +1,102 @@
+service: serverless-documentation
+variablesResolutionMode: 20210326
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  memorySize: 256
+  stage: ${opt:stage, 'develop'}
+  region: ${opt:region, 'eu-west-1'}
+  # these will be environment variables in your lambda handlers
+  environment:
+    BUCKET_NAME: ${self:custom.imagesBucket}
+    STAGE: ${opt:stage, self:provider.stage}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  apiGateway:
+    shouldStartNameWithService: true
+  # this iam role will be applied to all lambdas. best practice is to have a role specific to
+  # each lamda for least privilage security
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:ListObjects"
+            - "s3:GetObject"
+            - "s3:PutObject"
+          Resource:
+            - "arn:aws:s3:::${self:custom.imagesBucket}"
+            - "arn:aws:s3:::${self:custom.imagesBucket}/*"
+# serverless plugins
+plugins:
+  - serverless-webpack
+  - serverless-s3-sync
+  - serverless-openapi-documentation-v2
+package:
+  individually: true
+functions:
+  # function to get an image using a pre-signed download url
+  get-image:
+    handler: src/functions/images/get-image/get-image.handler
+    timeout: 10
+    events:
+      - http:
+          path: images/{id} # for this demo it only works with png images for simplicity
+          method: get
+          documentation: ${file(serverless.doc.yml):documentation.endpoints.getImage}
+  # function to upload an image
+  upload-image:
+    handler: src/functions/images/upload-image/upload-image.handler
+    timeout: 10
+    events:
+      - http:
+          path: images/{id} # for this demo it only works with png images for simplicity
+          method: put
+          documentation: ${file(serverless.doc.yml):documentation.endpoints.uploadImage}
+custom:
+  imagesBucket: s3-images-${self:provider.stage}
+  docsBucket: s3-documentation-${self:provider.stage}
+  openapiBucket: s3-openapi-${self:provider.stage}
+  openapiTitle: serverless-documentation-${self:provider.stage}
+  # serverless documentation plugin configuration stored in a separate file
+  documentation: ${file(serverless.doc.yml):documentation}
+  # this is the config for the s3sync plugin which will move all assets from src/assets into the s3 bucket
+  s3Sync:
+    - bucketName: ${self:custom.docsBucket} # sync the code documentation to s3
+      localDir: docs/documentation
+      acl: public-read
+    - bucketName: ${self:custom.openapiBucket} # sync the openapi documentation to s3
+      localDir: docs/openapi
+      acl: public-read
+    - bucketName: ${self:custom.imagesBucket} # push the example 1.png file to the images s3 bucket
+      localDir: src/assets
+      acl: private
+  # this is the webpack config for the build
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules:
+      forceExclude:
+        - aws-sdk
+resources:
+  Resources:
+    # this is the private images s3 bucket 
+    AssetsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.imagesBucket}
+    # this is the documentation s3 bucket which is publicly accessible
+    DocsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.docsBucket}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+    # this is the openapi s3 bucket which is publicly accessible
+    OpenAPIBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.openapiBucket}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html

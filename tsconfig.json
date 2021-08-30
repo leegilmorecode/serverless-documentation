@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6"],
+    "removeComments": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "watch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules/**/*", ".serverless/**/*", ".webpack/**/*"]
+}

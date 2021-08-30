@@ -1,0 +1,17 @@
+{
+  "entryPoints": ["src/functions/images/get-image/get-image.ts", "src/functions/images/upload-image/upload-image.ts"],
+  "out": "docs/documentation",
+  "highlightTheme": "dark-plus",
+  "theme": "default",
+  "name": "Serverless Documentation",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "exclude": "**/*+(index|.spec|.e2e).ts",
+  "externalPattern": [".serverless/**/*", ".webpack/**/*"],
+  "media": "docs/images",
+  "readme": "docs/DOCS.md",
+  "disableSources": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "includes": "docs/adr/"
+}

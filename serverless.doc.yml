@@ -1,0 +1,54 @@
+documentation:  
+  version: '1'
+  title: ${self:custom.openapiTitle}
+  description: ${self:custom.openapiTitle}  - example OpenAPI document
+  endpoints:
+    getImage:
+      summary: "Get Image by ID"
+      description: "Get a pre-signed temporary download URL for the image by ID"
+      requestBody:
+        description: "Get a pre-signed temporary download URL for the image by ID"
+      pathParams:
+        - name: "id"
+          description: "The ID of the image"
+          schema:
+            type: "number"
+      methodResponses:
+        - statusCode: 200
+          responseBody:
+            description: "the temporary download url"
+          responseModels:
+            application/json: "GetImageResponse"
+    uploadImage:
+      summary: "Upload Image by ID"
+      description: "Get a pre-signed temporary upload URL for the image by ID"
+      requestBody:
+        description: "Get a pre-signed temporary upload URL for the image by ID"
+      pathParams:
+        - name: "id"
+          description: "The ID of the image"
+          schema:
+            type: "number"
+      methodResponses:
+        - statusCode: 200
+          responseBody:
+            description: "the temporary upload url"
+          responseModels:
+            application/json: "UploadImageResponse"
+  models:
+    - name: "GetImageResponse"
+      description: "Get Image Response"
+      contentType: "application/json"
+      schema:
+        $schema: "http://json-schema.org/draft-04/schema#"
+        properties:
+          url:
+            type: "string"
+    - name: "UploadImageResponse"
+      description: "Upload Image Response"
+      contentType: "application/json"
+      schema:
+        $schema: "http://json-schema.org/draft-04/schema#"
+        properties:
+          url:
+            type: "string"

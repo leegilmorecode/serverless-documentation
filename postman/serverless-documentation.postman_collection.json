@@ -1,0 +1,41 @@
+{
+  "info": {
+    "_postman_id": "9fa38f13-0908-4cd3-8112-1d3e071e6245",
+    "name": "serverless-documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Image Download URL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/1",
+          "host": ["{{url}}"],
+          "path": ["1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Put Image Upload URL",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/2",
+          "host": ["{{url}}"],
+          "path": ["2"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "https://something.execute-api.eu-west-1.amazonaws.com/develop/images"
+    }
+  ]
+}

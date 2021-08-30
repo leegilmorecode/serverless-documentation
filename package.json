@@ -1,0 +1,57 @@
+{
+  "name": "serverless-documentation",
+  "version": "1.0.0",
+  "description": "Examples of auto generating swagger, documentation and ADRs as part of your Serverless solutions!",
+  "main": "index.ts",
+  "scripts": {
+    "docs": "npx typedoc",
+    "prettier": "npx prettier --write .",
+    "build:develop": "sls package --stage=develop",
+    "deploy:develop": "sls deploy --stage=develop",
+    "remove:develop": "sls remove --stage=develop",
+    "adr:init": "./node_modules/.bin/adr init 'en'",
+    "adr:new": "./node_modules/.bin/adr new",
+    "adr:update": "./node_modules/.bin/adr update",
+    "adr:list": "./node_modules/.bin/adr list",
+    "adr:toc": "./node_modules/.bin/adr generate toc",
+    "adr:export": "./node_modules/.bin/adr export html",
+    "openapi": "sls openapi generate -o docs/openapi/openapi.json -f json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leegilmorecode/serverless-documentation.git"
+  },
+  "author": "Lee Gilmore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leegilmorecode/serverless-documentation/issues"
+  },
+  "homepage": "https://github.com/leegilmorecode/serverless-documentation#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.82",
+    "@types/node": "^16.6.2",
+    "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "adr": "^1.3.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "fork-ts-checker-webpack-plugin": "^6.3.2",
+    "husky": "^7.0.2",
+    "prettier": "^2.3.2",
+    "serverless": "^2.55.0",
+    "serverless-openapi-documentation-v2": "^0.4.6",
+    "serverless-s3-sync": "^1.17.1",
+    "serverless-webpack": "^5.5.1",
+    "ts-loader": "^9.2.5",
+    "typedoc": "^0.21.7",
+    "typescript": "^4.3.5",
+    "webpack": "^5.51.1",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.978.0",
+    "uuid": "^8.3.2"
+  }
+}

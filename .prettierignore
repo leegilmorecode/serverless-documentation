@@ -1,0 +1,10 @@
+node_modules
+.serverless
+.webpack
+dist
+lib
+*.yml
+docs/documentation
+docs/openapi
+docs/adr
+postman/

@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.0",
+  "components": {
+    "schemas": {
+      "GetImageResponse": {
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "UploadImageResponse": {
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "info": {
+    "title": "serverless-documentation-develop",
+    "description": "serverless-documentation-develop  - example OpenAPI document",
+    "version": "1"
+  },
+  "servers": [],
+  "paths": {
+    "/images/{id}": {
+      "get": {
+        "operationId": "get-image",
+        "summary": "Get Image by ID",
+        "description": "Get a pre-signed temporary download URL for the image by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the image",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the temporary download url",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetImageResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "upload-image",
+        "summary": "Upload Image by ID",
+        "description": "Get a pre-signed temporary upload URL for the image by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the image",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the temporary upload url",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadImageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
